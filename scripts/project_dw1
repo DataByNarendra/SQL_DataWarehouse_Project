@@ -1,0 +1,46 @@
+/*
+=====================================================================================
+Create Database and Schemas
+=====================================================================================
+Script Purpose:
+  The main purpose of this script is to check whether the database named 'DataWareHouse' is existed or not. 
+  If it is existed, it is dropped and the new one will be recreated. Additionally, the script sets up three
+  schemas within the database: 'bronze', 'silver','gold'.
+
+WARNING:
+  If the Script is run without caution, the whole database 'DataWareHouse' will be dropped. This results in PERMANENT 
+  DELETION of all the data within the database. Proceed with CAUTION and ensure proper backups are in place before running
+  the script.
+*/
+
+USE master;
+GO
+
+
+--- Drops and recreate the 'DataWareHouse' database if executed 
+IF DB_ID(N'DataWareHouse') IS NOT NULL
+BEGIN
+    ALTER DATABASE DataWareHouse
+        SET SINGLE_USER
+        WITH ROLLBACK IMMEDIATE;
+
+    DROP DATABASE DataWareHouse;
+END;
+GO
+
+---  Create the database 'DataWareHouse' database
+CREATE DATABASE DataWareHouse;
+GO
+
+USE DataWareHouse;
+GO
+
+--- Create Schemas
+CREATE SCHEMA bronze;
+GO
+
+CREATE SCHEMA silver;
+GO
+
+CREATE SCHEMA gold;
+GO
